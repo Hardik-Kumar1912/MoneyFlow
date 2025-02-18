@@ -3,7 +3,7 @@ import Transaction from "../models/transation.model.js";
 const transactionResolver = {
 
     Query: {
-        transactions: async (_,_,context) => {
+        transactions: async (_, __,context) => {
             try {
                 
                 if(!context.getUser()){

@@ -51,13 +51,13 @@ const userResolver = {
                 await context.login(user);
                 return user
 
-            } catch (error) {
+            } catch (err) {
                 console.error("Error in login: ", err);
 				throw new Error(err.message || "Internal server error");
             }
         },
 
-        logout: async (_,_,context) => {
+        logout: async (_, __,context) => {
             try {
 				await context.logout();
 				context.req.session.destroy((err) => {
@@ -75,13 +75,13 @@ const userResolver = {
 
     Query: {
 
-        authUser: async(_,_,context) => {
+        authUser: async(_,__,context) => {
             try {
                 
                 const user = await context.getUser();
                 return user;
 
-            } catch (error) {
+            } catch (err) {
                 console.error("Error in authUser : ", err);
 				throw new Error(err.message || "Internal server error");
             }
@@ -93,7 +93,7 @@ const userResolver = {
                 const user = await User.findById(userId);
                 return user;
 
-            } catch (error) {
+            } catch (err) {
                 console.error("Error in user : ", err);
 				throw new Error(err.message || "Internal server error");
             }
