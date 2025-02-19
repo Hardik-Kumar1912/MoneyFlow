@@ -14,10 +14,9 @@ const categoryColorMap = {
 	saving: "from-green-700 to-green-400",
 	expense: "from-pink-800 to-pink-600",
 	investment: "from-blue-700 to-blue-400",
-	// Add more categories and corresponding color classes as needed
 };
 
-const Card = ({ transaction }) => {
+const Card = ({ transaction , authUser}) => {
 
 	let {category,amount,date,paymentType,description,location} = transaction;
 	const cardClass = categoryColorMap[category];
@@ -29,7 +28,7 @@ const Card = ({ transaction }) => {
 	const formatedDate = formatDate(date);
 
 	const [deleteTransaction, {loading}] = useMutation(DELETE_TRANSACTION,{
-		refetchQueries: ["GetTransactions"]
+		refetchQueries: ["GetTransactions","GetTransactionStatistics"]
 	});
 
 	const handleDelete = async() => {
@@ -74,7 +73,7 @@ const Card = ({ transaction }) => {
 				<div className='flex justify-between items-center'>
 					<p className='text-xs text-black font-bold'>{formatedDate}</p>
 					<img
-						src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+						src={authUser.profilePicture}
 						className='h-8 w-8 border rounded-full'
 						alt=''
 					/>
